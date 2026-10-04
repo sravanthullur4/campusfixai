@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: campusfix-mysql
+    environment:
+      MYSQL_DATABASE: campusfix
+      MYSQL_USER: campusfix
+      MYSQL_PASSWORD: campusfix
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - campusfix_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "campusfix", "-pcampusfix"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+volumes:
+  campusfix_mysql:
